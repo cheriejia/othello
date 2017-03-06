@@ -6,7 +6,10 @@
  * within 30 seconds.
  */
 
-/* Team Ruthwick and Sathwick */
+/* 
+    Team: Ruthwick and Sathwick 
+    Members: Juliette Xiong and Cherie Jia
+*/
 Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
