@@ -18,10 +18,15 @@ Board::Board() {
 
         }
     }
+
+    // Weightings for our hot function defined below
+
+    // High point values for corners so we have a higher chance of picking them 
     hotboard[0][0] = 30;
     hotboard[7][0] = 30;
     hotboard[0][7] = 30;
     hotboard[7][7] = 30;
+    // Low point values for spots next to corners so have less chance of picking them.
     hotboard[1][0] = -5;
     hotboard[0][1] = -5;
     hotboard[7][1] = -5;
@@ -197,6 +202,11 @@ void Board::setBoard(char data[]) {
     }
 }
 
+/*
+ * Algorithm that weighs the squares according to the point
+ * values defined above to give our program a better heuristic than simply counting
+ * the pieces on our side.
+ */
 int Board::hot(Side side) {
     int sum = 0;
     for (int i = 0; i < 8; i++) {

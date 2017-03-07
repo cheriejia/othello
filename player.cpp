@@ -16,11 +16,7 @@ Player::Player(Side side)
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
 
-    /*
-     * TODO: Do any initialization you need to do here (setting up the board,
-     * precalculating things, etc.) However, remember that you will only have
-     * 30 seconds.
-     */
+    // Initialize new board
     b = new Board();
     mySide = side;
 
@@ -48,10 +44,7 @@ Player::~Player()
  */
 Move *Player::doMove(Move *opponentsMove, int msLeft) 
 {
-    /*
-     * TODO: Implement how moves your AI should play here. You should first
-     * process the opponent's opponents move before calculating your own move
-     */
+    // Make move according to whether my AI is black or white.
     if (opponentsMove != nullptr)
     {
         if (mySide == BLACK)
@@ -78,25 +71,24 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
         for (int j = 0; j < 8; j++) 
         {
             Move *move = new Move(i, j);
-            cerr << i << " " << j << endl;
             Board *goodb = b->copy();
             if (goodb->checkMove(move, mySide))
             {
                 goodb->doMove(move, mySide);
-                std::cerr << "blah" << std::endl;
+                // Implement our heuristic when making moves.
                 if (movegood == nullptr || goodb->hot(mySide) > goodcount)
 
                     {
+
                         movegood = move;
                         goodcount =  goodb->hot(mySide);
                     }
             }
         }
     }
-    std::cerr << "finsihed" << std::endl;
+    // Make move if it is legal
     if (movegood != nullptr && b->checkMove(movegood, mySide))
     {
-        cerr <<  movegood->x <<  " " << movegood->y << endl;
         b->doMove(movegood, mySide);
     }
     
