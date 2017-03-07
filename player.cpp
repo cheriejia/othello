@@ -10,7 +10,8 @@
     Team: Ruthwick and Sathwick 
     Members: Juliette Xiong and Cherie Jia
 */
-Player::Player(Side side) {
+Player::Player(Side side) 
+{
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
 
@@ -19,12 +20,16 @@ Player::Player(Side side) {
      * precalculating things, etc.) However, remember that you will only have
      * 30 seconds.
      */
+    b = new Board();
+    mySide = side;
+
 }
 
 /*
  * Destructor for the player.
  */
-Player::~Player() {
+Player::~Player() 
+{
 }
 
 /*
@@ -40,10 +45,38 @@ Player::~Player() {
  * The move returned must be legal; if there are no valid moves for your side,
  * return nullptr.
  */
-Move *Player::doMove(Move *opponentsMove, int msLeft) {
+Move *Player::doMove(Move *opponentsMove, int msLeft) 
+{
     /*
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
+    if (!(b->hasMoves(mySide)))
+    {
+        return nullptr;
+    }
+
+    if (mySide == BLACK)
+    {
+        b->doMove(opponentsMove, WHITE);
+    }
+    else
+    {
+        b->doMove(opponentsMove, BLACK);
+    }
+
+    for (int i = 0; i < 8; i++) 
+    {
+        for (int j = 0; j < 8; j++) 
+        {
+            Move *move = new Move(i, j);
+            if (b->checkMove(move, mySide)) 
+            {
+                b->doMove(move, mySide);
+                return move;
+            }
+            delete move;
+        }
+    }
     return nullptr;
 }
