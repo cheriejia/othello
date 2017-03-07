@@ -10,6 +10,23 @@ Board::Board() {
     taken.set(4 + 8 * 4);
     black.set(4 + 8 * 3);
     black.set(3 + 8 * 4);
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            hotboard[i][j] = 1;
+
+        }
+    }
+    hotboard[0][0] = 30;
+    hotboard[7][0] = 30;
+    hotboard[0][7] = 30;
+    hotboard[7][7] = 30;
+    hotboard[1][0] = -3;
+    hotboard[0][1] = -3;
+    hotboard[7][1] = -3;
+    hotboard[1][7] = -3;
+
 }
 
 /*
@@ -35,6 +52,7 @@ bool Board::occupied(int x, int y) {
 bool Board::get(Side side, int x, int y) {
     return occupied(x, y) && (black[x + 8*y] == (side == BLACK));
 }
+
 
 void Board::set(Side side, int x, int y) {
     taken.set(x + 8*y);
@@ -177,4 +195,18 @@ void Board::setBoard(char data[]) {
             taken.set(i);
         }
     }
+}
+
+int Board::hot(Side side) {
+    int sum = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (get(side, i, j))
+            {
+                sum += hotboard[i][j];
+            }
+           
+        }
+    }
+    return sum;
 }

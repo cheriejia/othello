@@ -97,11 +97,11 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
             {
                 goodb->doMove(move, mySide);
                 std::cerr << "blah" << std::endl;
-                if (movegood == nullptr || goodb->count(mySide) > goodcount)
+                if (movegood == nullptr || goodb->hot(mySide) > goodcount)
 
                     {
                         movegood = move;
-                        goodcount =  goodb->count(mySide);
+                        goodcount =  goodb->hot(mySide);
                     }
             }
         }

@@ -10,7 +10,7 @@ class Board {
 private:
     bitset<64> black;
     bitset<64> taken;
-
+    int hotboard[8][8];
     bool occupied(int x, int y);
     bool get(Side side, int x, int y);
     void set(Side side, int x, int y);
@@ -20,7 +20,7 @@ public:
     Board();
     ~Board();
     Board *copy();
-
+    int hot(Side side);
     bool isDone();
     bool hasMoves(Side side);
     bool checkMove(Move *m, Side side);
