@@ -22,10 +22,10 @@ Board::Board() {
     hotboard[7][0] = 30;
     hotboard[0][7] = 30;
     hotboard[7][7] = 30;
-    hotboard[1][0] = -3;
-    hotboard[0][1] = -3;
-    hotboard[7][1] = -3;
-    hotboard[1][7] = -3;
+    hotboard[1][0] = -5;
+    hotboard[0][1] = -5;
+    hotboard[7][1] = -5;
+    hotboard[1][7] = -5;
 
 }
 
