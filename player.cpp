@@ -91,6 +91,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
         for (int j = 0; j < 8; j++) 
         {
             Move *move = new Move(i, j);
+            cerr << i << " " << j << endl;
             Board *goodb = b->copy();
             if (goodb->checkMove(move, mySide))
             {
@@ -108,10 +109,11 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
     std::cerr << "finsihed" << std::endl;
     if (movegood != nullptr && b->checkMove(movegood, mySide))
     {
+        cerr <<  movegood->x <<  " " << movegood->y << endl;
         b->doMove(movegood, mySide);
     }
     
 
 
-    return nullptr;
+    return movegood;
 }
