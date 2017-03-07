@@ -1,5 +1,6 @@
 #include "player.hpp"
-
+#include <iostream>
+using namespace std;
 /*
  * Constructor for the player; initialize everything here. The side your AI is
  * on (BLACK or WHITE) is passed in as "side". The constructor must finish
@@ -51,10 +52,23 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
-    if (!(b->hasMoves(mySide)))
+    if (opponentsMove == nullptr)
     {
-        return nullptr;
+        for (int i = 0; i < 8; i++) 
+        {
+            for (int j = 0; j < 8; j++) 
+            {
+                Move *move = new Move(i, j);
+                if (b->checkMove(move, mySide)) 
+                {
+                    b->doMove(move, mySide);
+                    return move;
+                }
+                delete move;
+            }
+        }  
     }
+
 
     if (mySide == BLACK)
     {
@@ -64,19 +78,40 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
     {
         b->doMove(opponentsMove, BLACK);
     }
+    
+    if (!(b->hasMoves(mySide)))
+    {
+        return nullptr;
+    }
 
+    Move *movegood = nullptr;
+    int goodcount = 0;
     for (int i = 0; i < 8; i++) 
     {
         for (int j = 0; j < 8; j++) 
         {
             Move *move = new Move(i, j);
-            if (b->checkMove(move, mySide)) 
+            Board *goodb = b->copy();
+            if (goodb->checkMove(move, mySide))
             {
-                b->doMove(move, mySide);
-                return move;
+                goodb->doMove(move, mySide);
+                std::cerr << "blah" << std::endl;
+                if (movegood == nullptr || goodb->count(mySide) > goodcount)
+
+                    {
+                        movegood = move;
+                        goodcount =  goodb->count(mySide);
+                    }
             }
-            delete move;
         }
     }
+    std::cerr << "finsihed" << std::endl;
+    if (movegood != nullptr && b->checkMove(movegood, mySide))
+    {
+        b->doMove(movegood, mySide);
+    }
+    
+
+
     return nullptr;
 }
