@@ -52,32 +52,19 @@ Move *Player::doMove(Move *opponentsMove, int msLeft)
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
-    if (opponentsMove == nullptr)
+    if (opponentsMove != nullptr)
     {
-        for (int i = 0; i < 8; i++) 
+        if (mySide == BLACK)
         {
-            for (int j = 0; j < 8; j++) 
-            {
-                Move *move = new Move(i, j);
-                if (b->checkMove(move, mySide)) 
-                {
-                    b->doMove(move, mySide);
-                    return move;
-                }
-                delete move;
-            }
-        }  
+            b->doMove(opponentsMove, WHITE);
+        }
+        else
+        {
+            b->doMove(opponentsMove, BLACK);
+        }
     }
 
 
-    if (mySide == BLACK)
-    {
-        b->doMove(opponentsMove, WHITE);
-    }
-    else
-    {
-        b->doMove(opponentsMove, BLACK);
-    }
     
     if (!(b->hasMoves(mySide)))
     {
