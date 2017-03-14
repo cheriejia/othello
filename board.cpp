@@ -31,6 +31,10 @@ Board::Board() {
     hotboard[0][1] = -5;
     hotboard[7][1] = -5;
     hotboard[1][7] = -5;
+    hotboard[6][7] = -5;
+    hotboard[0][6] = -5;
+    hotboard[6][0] = -5;
+    hotboard[7][6] = -5;
 
 }
 
